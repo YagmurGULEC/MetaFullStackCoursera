@@ -7,7 +7,17 @@ After activating the environment by the following command:
 ```
 pipenv shell
 ```
+You can run mySQL server in the meantime:
+```
+docker compose up --build db
+```
+You need to run migrations in Django  after activating the Python environment:
 
+```
+
+python manage.py makemigrations
+python manage.py migrate
+```
 ## How to Run With Docker
 This is the repo as the capstone project in Meta Full Stack course on Coursera. 
 I adapted this to run this on Docker instead of pipenv. It creates two containers, one of which is for the web application. The other is for mySQL. You can run this with the command below:
