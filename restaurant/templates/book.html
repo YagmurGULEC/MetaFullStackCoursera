@@ -55,15 +55,16 @@
   console.log(document.getElementById('reservation_date').value)
   getBookings()
 
-
-  /*  Step 10: Part two */
+  document.getElementById('reservation_date').addEventListener('change', function (e) {
+    getBookings()
+  })
 
 
   function getBookings() {
     let reserved_slots = []
     const date = document.getElementById('reservation_date').value
     document.getElementById('today').innerHTML = date
-    
+    console.log(date)
     fetch("{% url 'bookings' %}" + '?date=' + date)
       .then(r => r.json())
       .then(data => {
@@ -71,10 +72,18 @@
         bookings = ''
         
         /* Step 11: Part three */
-
+        data.forEach(item => {
+          console.log(item.fields)
+          reserved_slots.push(item.fields.reservation_slot)
+          bookings += `<p>${item.fields.first_name} - ${formatTime(item.fields.reservation_slot)}</p>`
+        })
 
         /* Step 12: Part four  */
-
+        const slot_options = [...Array(24).keys()].map(i => {
+          const slot = i + 1
+          const disabled = reserved_slots.includes(slot) ? 'disabled' : ''
+          return `<option value="${slot}" ${disabled}>${formatTime(slot)}</option>`
+        }).join('')
         
         document.getElementById('reservation_slot').innerHTML = slot_options
         if(bookings==''){

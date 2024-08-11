@@ -50,6 +50,7 @@ def display_menu_item(request, pk=None):
 def bookings(request):
     if request.method == 'POST':
         data = json.load(request)
+       
         exist = Booking.objects.filter(reservation_date=data['reservation_date']).filter(
             reservation_slot=data['reservation_slot']).exists()
         if exist==False:
@@ -61,9 +62,14 @@ def bookings(request):
             booking.save()
         else:
             return HttpResponse("{'error':1}", content_type='application/json')
+        
     
-    date = request.GET.get('date',datetime.today().date())
-
+    date = request.GET.get('date')
+    
+    if not date:
+        
+        date=datetime.today().date().strftime('%Y-%m-%d')
+    
     bookings = Booking.objects.all().filter(reservation_date=date)
     booking_json = serializers.serialize('json', bookings)
 

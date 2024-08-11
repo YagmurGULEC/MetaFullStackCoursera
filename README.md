@@ -1,4 +1,14 @@
-## How to Use
+## How to Run With Pipenv and MySQL with Docker
+You can run mySQL with Docker but Django app with pipenv. To install dependencies :
+```
+pipenv install 
+```
+After activating the environment by the following command:
+```
+pipenv shell
+```
+
+## How to Run With Docker
 This is the repo as the capstone project in Meta Full Stack course on Coursera. 
 I adapted this to run this on Docker instead of pipenv. It creates two containers, one of which is for the web application. The other is for mySQL. You can run this with the command below:
 

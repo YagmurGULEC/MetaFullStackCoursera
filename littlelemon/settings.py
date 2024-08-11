@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,14 +80,20 @@ WSGI_APPLICATION = 'littlelemon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'reservations',
+        'NAME': 'booking_db',
         'HOST' : '127.0.0.1',
         'PORT' : '3306',
-        'USER' : 'root',
-        'PASSWORD' : 'root@123',
+        'USER' : 'booking_user',
+        'PASSWORD' : 'booking_pass',
+        'ROOT_PASSWORD' : 'root_password',
     }
 }
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='mysql://booking_user:booking_pass@172.17.0.2:3306/booking_db'
+#     )
+# }
 # The settings for media files have been updated for the Graded assessment
 MEDIA_URL = '/media/'
 
